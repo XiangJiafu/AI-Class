@@ -1,0 +1,52 @@
+//计算f(x)=x sinx(10πx)=2.0,x=[-1,2]
+#include <stdio.h>
+#include <math.h>
+# define LEFT -1
+# define RIGHT 2
+# define CHROMLENGTH 22
+# define POPSIZE 80
+
+//结构定义
+  struct individual
+  { 
+    char chrom[CHROMLENGTH+1];//基因 
+    double x;   //自变量 
+    double value;//目标函数值
+    double fitness;//适应度
+  };
+  struct individual population[POPSIZE]
+  
+//编码转换
+long Chage_Decode (char *string,int point,int length)
+{ 
+    int i;
+    long decimal=0L;
+    char *pointer;
+    for (i=0,pointer=string+point;i<length;i++,pointer++)
+    { 
+        decimal+=(*pointer-'0')<<(length-1-i);
+    }
+    return (decimal);
+}
+
+//目标值计算
+int caculate_targe_value()
+{
+    int i;
+    long temp;
+    double x;
+    for (i=0;i<PopSize;i++)
+    {       
+        temp=Chage_Decode (population[i].chrom,0,CHROMLENGTH);
+        x=(Right-Left)*temp/(pow(2,CHROMLENGTH)-1.0)+Left;
+            population[i].value=x*sin(10*PI*x)+2.0;
+        population[i].x=x;
+    }
+    return(population[i].value);
+}
+
+int main()
+{
+    return caculate_targe_value();
+    
+}
